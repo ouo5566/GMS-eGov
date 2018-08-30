@@ -1,5 +1,7 @@
 package com.gms.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,11 @@ import com.gms.web.service.MemberService;
 public class MemberController {
 	static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired MemberService memberService;
+	@Autowired MemberDTO member;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute("member") MemberDTO member) {
-		logger.info("Member Controller :: add()");
+		logger.info("member :: id :: " + this.member.getMemberId());
+		logger.info("add()");
 		memberService.add(member);
 		return "auth:member/login.tiles";
 	}
@@ -52,23 +56,31 @@ public class MemberController {
 		return "login:member/retrieve.tiles";
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, @ModelAttribute("member") MemberDTO member) {
-		logger.info("Member Controller :: modify()");
+	public String modify(HttpSession session, Model model
+			, @ModelAttribute("member") MemberDTO member
+			, @ModelAttribute("user") MemberDTO user) {
+		logger.info("member :: id :: " + this.member.getMemberId());
+		logger.info("modify()");
+		
 		memberService.modify(member);
 		model.addAttribute("user", memberService.retrieve(member));
 		return "login:member/retrieve.tiles";
 	}
 	@RequestMapping("/remove")
 	public String remove(@ModelAttribute MemberDTO member) {
-		logger.info("Member Controller :: remove()");
+		logger.info("member :: id :: " + this.member.getMemberId());
+		logger.info("remove()");
 		memberService.remove(member);
 		return "redirect:/";
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(Model model, @ModelAttribute("member") MemberDTO member) {
-		logger.info("Member Controller :: login()");
+		logger.info("login()");
+		logger.info("this.member :: " + this.member);
+		logger.info("member :: " + member);
 		if(memberService.login(member)) {
-			model.addAttribute("user", memberService.retrieve(member));
+			this.member = memberService.retrieve(member);
+			model.addAttribute("user", this.member);
 		}else {
 			return "auth:member/login.tiles" ;
 		}
@@ -76,7 +88,7 @@ public class MemberController {
 	}
 	@RequestMapping("/logout")
 	public String logout() {
-		logger.info("Member Controller :: logout()");
+		logger.info("logout()");
 		return "redirect:/";
 	}
 }
