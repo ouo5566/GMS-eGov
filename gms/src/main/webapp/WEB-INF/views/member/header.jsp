@@ -33,7 +33,7 @@
 		location.href = "${context}/member/logout";
 	});
 	$('#retrieve_move').click(function(){
-		location.href = "${context}/member/retrieve/${user.memberId}";
+		location.href = "${context}/member/retrieve";
 	});
 	$('#update_move').click(function(){
 		location.href = "${context}/move/login/member/modify";

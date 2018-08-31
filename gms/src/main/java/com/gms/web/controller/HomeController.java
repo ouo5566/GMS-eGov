@@ -19,13 +19,13 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session, HttpServletRequest request) {
 		String context = request.getContextPath();
-		logger.info("Home Controller :: home()_context :: {}", context);
+		logger.info("home() context :: {}", context);
 		session.setAttribute("context", context);
 		return "public:common/content.tiles";
 	}
 	@RequestMapping("/move/{prefix}/{dir}/{page}")
 	public String move(@PathVariable String dir, @PathVariable String page, @PathVariable String prefix ) {
-		logger.info("Home Controller :: move()_page :: "+page);
+		logger.info("move() page :: "+page);
 		return prefix+":"+ dir+"/"+page+".tiles" ;
 	}
 }

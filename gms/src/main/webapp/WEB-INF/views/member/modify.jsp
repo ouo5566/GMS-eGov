@@ -8,11 +8,11 @@
 					<img src="${img}${profile}" alt="" />
 				</td>
 				<td>ID</td>
-				<td id="memberId">${user.memberId}</td>
+				<td>${user.memberId}</td>
 			</tr>
 			<tr>
 				<td>이름 </td>
-				<td id="name">${user.name}</td>
+				<td>${user.name}</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
@@ -22,7 +22,7 @@
 			</tr>
 			<tr>
 				<td>성별</td>
-				<td id="gender">${user.gender}</td>
+				<td>${user.gender}</td>
 				<td>팀</td>
 				<td>
 					<select name="teamId" id="teamId">
@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<td>나이</td>
-				<td id="age">${user.age}</td>
+				<td>${user.age}</td>
 				<td>역할</td>
 				<td>
 					<select name="roll" id="roll">
